@@ -1,2 +1,2 @@
 # RegistroDeAlunos-ED
-Repositório para desenvolvimento do exercicio e atividade 01 
+Repositório para desenvolvimento de um exercício sobre Listas Ligadas voltado para registros de alunos
