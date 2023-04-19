@@ -1,26 +1,28 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 #define TAM_ALUNO 30
 
 
-typedef struct{
+typedef struct aluno{
     int RA;
     char nome[TAM_ALUNO];
     double nota_primeira_prova;
     double nota_segunda_prova;
     double nota_exercicios;
-    Aluno *prox;
+    struct aluno *prox;
 }Aluno;
 
 typedef struct{
     Aluno *ultimo;
     Aluno *primeiro;
-     
+
 }Lista_Alunos_ED1;
 
 double calcular_media(Aluno * aluno){
 
-    return ((aluno->nota_primeira_prova 
+    return ((aluno->nota_primeira_prova
             + aluno->nota_segunda_prova +
               aluno->nota_exercicios) / 3);
 }
@@ -63,7 +65,7 @@ Aluno *deletar_registro(Lista_Alunos_ED1 *lista, int RA){
    Aluno *anterior = NULL;
 
    while(atual !=NULL && atual->RA != RA){
-   
+
     anterior = atual;
     atual = atual->prox;
    }
@@ -98,6 +100,10 @@ void calcular_aprovacoes(Lista_Alunos_ED1 *lista){
     }
 }
 
+limparEntradaDeTeclado(){
+    fflush(stdin);
+}
+
 int main(){
 
     while(true){
@@ -105,9 +111,9 @@ int main(){
         int qtdAlunos = 0;
         printf("Digite 0 para encerrar o programa\n");
         printf("Quantos alunos deseja inserir:\n");
-        scanf("%d", &qtdAlunos);
+        scanf(" %d", &qtdAlunos);
         if(qtdAlunos > 50){
-            printf("O numero maximo permitido de alunos eh 50");
+            printf("O numero maximo permitido de alunos eh 50\n");
         }
         else if(qtdAlunos == 0){
             return 0;
@@ -115,19 +121,26 @@ int main(){
         else{
             Lista_Alunos_ED1 *lista_alunos_ed1 = malloc(sizeof(Lista_Alunos_ED1));
             for(int i = 0; i < qtdAlunos; i++){
+
                 Aluno *aluno = malloc(sizeof(Aluno));
-                printf("\nDigite o RA do aluno ");
-                scanf("%d", &aluno->RA);
-                printf("\nDigite o nome do aluno ");
-                scanf("%s", &aluno->nome);
-                printf("\nDigite a nota da primeira prova do aluno ");
-                scanf("%f", &aluno->nota_primeira_prova);
-                printf("\nDigite a nota da segunda prova do aluno ");
-                scanf("%f", &aluno->nota_segunda_prova);
-                printf("\nDigite a nota de exercicios do aluno ");
-                scanf("%f", &aluno->nota_exercicios);
+                printf("\nDigite o RA do aluno \n");
+                scanf(" %d", &aluno->RA);
+
+                printf("Digite o nome do aluno\n");
+                scanf(" %[^\n]", &aluno->nome);
+
+                printf("Digite a nota da primeira prova do aluno \n");
+                scanf(" %f", &aluno->nota_primeira_prova);
+
+                printf("Digite a nota da segunda prova do aluno \n");
+                scanf(" %f", &aluno->nota_segunda_prova);
+
+                printf("Digite a nota de exercicios do aluno \n");
+                scanf(" %f", &aluno->nota_exercicios);
+
                 if(inserir_registro(lista_alunos_ed1, aluno)){
-                    printf("\n Registro inserido");
+                    printf("\nRegistro inserido\n");
+                    printf("%s\n", aluno->nome);
                 }
             }
         }
